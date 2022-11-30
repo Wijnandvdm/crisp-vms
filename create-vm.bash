@@ -18,22 +18,37 @@ PRESWORKDIR=`pwd`/vms/${MACHINENAME}
 #Create VM
 VBoxManage createvm --name ${MACHINENAME} --ostype "Ubuntu_64" --register --basefolder `pwd`/vms
 
-# VBoxManage modifyvm ${MACHINENAME} --ioapic on
+## SYSTEM
+#Supply VM with 4GB working memory, set processors and set boot order
+VBoxManage modifyvm ${MACHINENAME} --memory 4096 --cpus 4 --boot1 disk --boot2 dvd --boot3 none
 
-#Supply VM with 4GB working memory and 256MB
-VBoxManage modifyvm ${MACHINENAME} --memory 4096 --vram 256
+## DISPLAY
+#Supply VM with 256 video memory
+VBoxManage modifyvm ${MACHINENAME} --vram 256
+
+## STORAGE
+# #Create Disk and connect Linux Iso
+# VBoxManage createmedium --filename ${PRESWORKDIR}/${MACHINENAME}_DISK.vmdk --size 131072 --format VMDK
+# VBoxManage storagectl ${MACHINENAME} --name "SATA Controller" --add sata --controller IntelAhci
+# VBoxManage storageattach ${MACHINENAME} --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium  ${PRESWORKDIR}/${MACHINENAME}_DISK.vmdk
+# # VBoxManage storagectl ${MACHINENAME} --name "IDE Controller" --add ide --controller PIIX4
+# # VBoxManage storageattach ${MACHINENAME} --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium `pwd`/images/linux.iso
+
+
+## LEGACY
+VBoxManage createhd --filename ${PRESWORKDIR}/$MACHINENAME_DISK.vdi --size 131072 --format VDI
+VBoxManage storagectl $MACHINENAME --name "SATA Controller" --add sata --controller IntelAhci
+VBoxManage storageattach $MACHINENAME --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium  ${PRESWORKDIR}/$MACHINENAME_DISK.vdi
+VBoxManage storagectl $MACHINENAME --name "IDE Controller" --add ide --controller PIIX4
+VBoxManage storageattach $MACHINENAME --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium `pwd`/images/linux.iso
+
+## AUDIO
+#Disable audio
+VBoxManage modifyvm ${MACHINENAME} --audio none
+
+## NETWORK
 #Set Network
 VBoxManage modifyvm ${MACHINENAME} --nic1 nat
-#Set processors
-VBoxManage modifyvm ${MACHINENAME} --cpus 4
-
-#Create Disk and connect Linux Iso
-VBoxManage createmedium --filename ${PRESWORKDIR}/${MACHINENAME}_DISK.vmdk --size 131072 --format VMDK
-# VBoxManage storagectl ${MACHINENAME} --name "SATA Controller" --add ide --controller IntelAhci
-# VBoxManage storageattach ${MACHINENAME} --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium  ${PRESWORKDIR}/${MACHINENAME}_DISK.vmdk
-VBoxManage storagectl ${MACHINENAME} --name "IDE Controller" --add ide --controller PIIX4
-VBoxManage storageattach ${MACHINENAME} --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium `pwd`/images/linux.iso
-VBoxManage modifyvm ${MACHINENAME} --boot1 disk --boot2 dvd --boot3 none --boot4 none
 
 # #Enable RDP
 # VBoxManage modifyvm ${MACHINENAME} --vrde on
