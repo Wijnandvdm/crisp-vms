@@ -1,5 +1,5 @@
 #!/bin/bash
-MACHINENAME=scorched-earth
+MACHINENAME=tabula-rasa
 
 #Source of inspiration:
 # https://andreafortuna.org/2019/10/24/how-to-create-a-virtualbox-vm-from-command-line/
