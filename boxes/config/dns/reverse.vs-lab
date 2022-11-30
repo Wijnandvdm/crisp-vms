@@ -1,0 +1,11 @@
+$TTL 86400
+@   IN  SOA     ns1.jumbo.dlt.dev.local. root.jumbo.dlt.dev.local. (
+        2011071001  ;Serial
+        3600        ;Refresh
+        1800        ;Retry
+        604800      ;Expire
+        86400       ;Minimum TTL
+)
+@       IN  NS          procfwk.jumbo.dlt.dev.local.
+@       IN  PTR         jumbo.dlt.dev.local.
+procfwk     IN  A           192.168.33.10

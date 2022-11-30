@@ -1,0 +1,5 @@
+.vscode
+.vagrant
+*.log
+boxes/data
+packageclean.box
