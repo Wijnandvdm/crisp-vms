@@ -1,9 +1,0 @@
-version: '3'
-services:
-  jumbo-nielsen-mft:
-    image: "nielsen-mft"
-    build: .
-    container_name: "nielsen-mft"
-    volumes:
-      - "$PWD:/scripts"
-    entrypoint: ["bash", "/scripts/nielsen_nd.sh"]
