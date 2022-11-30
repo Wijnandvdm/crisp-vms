@@ -27,20 +27,10 @@ VBoxManage modifyvm ${MACHINENAME} --memory 4096 --cpus 4 --boot1 disk --boot2 d
 VBoxManage modifyvm ${MACHINENAME} --vram 256
 
 ## STORAGE
-# #Create Disk and connect Linux Iso
-# VBoxManage createmedium --filename ${PRESWORKDIR}/${MACHINENAME}_DISK.vmdk --size 131072 --format VMDK
-# VBoxManage storagectl ${MACHINENAME} --name "SATA Controller" --add sata --controller IntelAhci
-# VBoxManage storageattach ${MACHINENAME} --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium  ${PRESWORKDIR}/${MACHINENAME}_DISK.vmdk
-# # VBoxManage storagectl ${MACHINENAME} --name "IDE Controller" --add ide --controller PIIX4
-# # VBoxManage storageattach ${MACHINENAME} --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium `pwd`/images/linux.iso
-
-
-## LEGACY
-VBoxManage createhd --filename ${PRESWORKDIR}/$MACHINENAME_DISK.vdi --size 131072 --format VDI
-VBoxManage storagectl $MACHINENAME --name "SATA Controller" --add sata --controller IntelAhci
-VBoxManage storageattach $MACHINENAME --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium  ${PRESWORKDIR}/$MACHINENAME_DISK.vdi
-VBoxManage storagectl $MACHINENAME --name "IDE Controller" --add ide --controller PIIX4
-VBoxManage storageattach $MACHINENAME --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium `pwd`/images/linux.iso
+#Create Disk
+VBoxManage createmedium --filename ${PRESWORKDIR}/${MACHINENAME}-disk.vmdk --size 131072 --format VMDK
+VBoxManage storagectl ${MACHINENAME} --name "IDE Controller" --add ide --controller PIIX4
+VBoxManage storageattach ${MACHINENAME} --storagectl "IDE Controller" --port 0 --device 0 --type hdd --medium ${PRESWORKDIR}/${MACHINENAME}-disk.vmdk
 
 ## AUDIO
 #Disable audio
@@ -50,9 +40,8 @@ VBoxManage modifyvm ${MACHINENAME} --audio none
 #Set Network
 VBoxManage modifyvm ${MACHINENAME} --nic1 nat
 
-# #Enable RDP
-# VBoxManage modifyvm ${MACHINENAME} --vrde on
-# VBoxManage modifyvm ${MACHINENAME} --vrdemulticon on --vrdeport 10001
+# #Enable VRDP, enable multiple connections and set port
+VBoxManage modifyvm ${MACHINENAME} --vrde on --vrdemulticon on --vrdeport 11853
 
 #Start the VM
-# VBoxHeadless --startvm ${MACHINENAME}
+VBoxHeadless --startvm ${MACHINENAME}
