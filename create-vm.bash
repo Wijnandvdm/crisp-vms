@@ -1,5 +1,4 @@
 #!/bin/bash
-MACHINENAME=tabula-rasa
 
 #Source of inspiration:
 # https://andreafortuna.org/2019/10/24/how-to-create-a-virtualbox-vm-from-command-line/
@@ -9,10 +8,11 @@ if [ ! -f ./images/linux.iso ]; then
     echo "image not found, downloading image..."
     curl -o images/linux.iso https://releases.ubuntu.com/20.04.5/ubuntu-20.04.5-live-server-amd64.iso
 else
-    echo "image already exists, continuing..."
+    echo "image found, continuing..."
 fi
 
 # GLOBAL PARAMETERS
+MACHINENAME=tabula-rasa
 PRESWORKDIR=`pwd`/vms/${MACHINENAME}
 
 #Create VM
@@ -23,8 +23,8 @@ VBoxManage createvm --name ${MACHINENAME} --ostype "Ubuntu_64" --register --base
 VBoxManage modifyvm ${MACHINENAME} --memory 4096 --cpus 4 --boot1 disk --boot2 dvd --boot3 none
 
 ## DISPLAY
-#Supply VM with 256 video memory
-VBoxManage modifyvm ${MACHINENAME} --vram 256
+#Supply VM with 256 video memory, enable VRDP, enable multiple connections and set port
+VBoxManage modifyvm ${MACHINENAME} --vram 256 --vrde on --vrdemulticon on --vrdeport 11853
 
 ## STORAGE
 #Create Disk
@@ -40,8 +40,9 @@ VBoxManage modifyvm ${MACHINENAME} --audio none
 #Set Network
 VBoxManage modifyvm ${MACHINENAME} --nic1 nat
 
-# #Enable VRDP, enable multiple connections and set port
-VBoxManage modifyvm ${MACHINENAME} --vrde on --vrdemulticon on --vrdeport 11853
+## ADDITIONAL SETTINGS
+#Enable bidirectional clipboard and drag and drop, only possible when Guest Additionals are installed
+# VBoxManage modifyvm ${MACHINENAME} --clipboard bidirectional --draganddrop bidirectional
 
 #Start the VM
-VBoxHeadless --startvm ${MACHINENAME}
+# VBoxHeadless --startvm ${MACHINENAME}
