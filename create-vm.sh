@@ -44,5 +44,11 @@ VBoxManage modifyvm ${MACHINENAME} --nic1 nat
 #Enable bidirectional clipboard and drag and drop, only possible when Guest Additionals are installed
 # VBoxManage modifyvm ${MACHINENAME} --clipboard bidirectional --draganddrop bidirectional
 
+
+
+## GitHub ssh keys:
+# https://cli.github.com/manual/gh_ssh-key
+# https://docs.github.com/en/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/about-authentication-with-saml-single-sign-on
+
 #Start the VM
 # VBoxHeadless --startvm ${MACHINENAME}
