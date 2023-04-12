@@ -2,10 +2,10 @@
 
 # source: https://kifarunix.com/automate-virtual-machine-installation-on-virtualbox/
 
-VM_NAME="tabula-rasa"
+VM_NAME="jumbo-vm"
 
 PATH_TO_VDI="vms/${VM_NAME}.vdi"
-PATH_TO_IMAGE="images/linux.iso"
+PATH_TO_IMAGE="images/ubuntu-22.04.2-desktop-amd64.iso"
 
 # check if vm exists, if not, create vm
 echo "looking for vm..."
@@ -43,7 +43,7 @@ VBoxManage storageattach ${VM_NAME} \
 --medium ${PATH_TO_IMAGE}
 
 # Set the VM RAM and Virtual graphics card RAM size
-VBoxManage modifyvm ${VM_NAME} --memory 1024 --vram 16
+VBoxManage modifyvm ${VM_NAME} --memory 4096 --vram 16
 
 # Enable IO APIC
 VBoxManage modifyvm ${VM_NAME} --ioapic on

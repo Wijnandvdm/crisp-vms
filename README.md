@@ -1,10 +1,12 @@
 # REQUIREMENTS
 ## Virtualbox
     Download: https://www.virtualbox.org/wiki/Downloads
-    You can encounter the following error Oracle VM Virtualbox <version number> needs the Microsoft Visual C++ 2019 ... installed first.
+    You can encounter the following error: Oracle VM Virtualbox <version number> needs the Microsoft Visual C++ 2019 ... installed first.
     Fix for error: https://www.debugpoint.com/virtualbox-needs-microsoft-visual-c/
 ## Git Bash
     Download: https://gitforwindows.org/
+    You can encounter the following error: VBoxManage command not found
+    Fix for error is add virtualbox folder to Path Env Vars: https://www.roelpeters.be/vboxmanage-is-not-recognized-and-how-to-solve-it/
 
 # Why
 ## This project has been started to allow for quickly and easily spinning up VMs
