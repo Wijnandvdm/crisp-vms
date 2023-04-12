@@ -26,7 +26,7 @@ if [ ! -f ${PATH_TO_VDI} ]; then
     # setup vm storage medium
     VBoxManage createmedium \
     --filename ${PATH_TO_VDI} \
-    --size 10240
+    --size 25600
 else
     echo "storage medium found, continuing..."
 fi
