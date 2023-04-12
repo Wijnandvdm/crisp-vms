@@ -2,10 +2,11 @@
 
 # source: https://kifarunix.com/automate-virtual-machine-installation-on-virtualbox/
 
-VM_NAME="jumbo-vm"
+VM_NAME="tabula-rasa-vm"
 
 PATH_TO_VDI="vms/${VM_NAME}.vdi"
-PATH_TO_IMAGE="images/ubuntu-22.04.2-desktop-amd64.iso"
+PATH_TO_OS_IMAGE="images/ubuntu-22.04.2-desktop-amd64.iso"
+PATH_TO_GUEST_ADDITIONS_IMAGE="images/VBoxGuestAdditions.iso"
 
 # check if vm exists, if not, create vm
 echo "looking for vm..."
@@ -31,19 +32,19 @@ else
 fi
 
 # Add and Attach SATA and IDE Storage Controllers
-VBoxManage storagectl ${VM_NAME} --name SATA --add SATA --controller IntelAhci
+VBoxManage storagectl ${VM_NAME} --name SATA --add SATA --controller IntelAhci --portcount 1
 
 VBoxManage storageattach ${VM_NAME} \
 --storagectl SATA --port 0 --device 0 --type hdd \
 --medium ${PATH_TO_VDI}
 
-VBoxManage storagectl ${VM_NAME} --name IDE --add ide
+VBoxManage storagectl ${VM_NAME} --name IDE --add ide --controller PIIX4
 VBoxManage storageattach ${VM_NAME} \
 --storagectl IDE --port 0 --device 0 --type dvddrive \
---medium ${PATH_TO_IMAGE}
+--medium ${PATH_TO_OS_IMAGE}
 
 # Set the VM RAM and Virtual graphics card RAM size
-VBoxManage modifyvm ${VM_NAME} --memory 4096 --vram 16
+VBoxManage modifyvm ${VM_NAME} --memory 8192 --vram 256
 
 # Enable IO APIC
 VBoxManage modifyvm ${VM_NAME} --ioapic on
@@ -52,17 +53,17 @@ VBoxManage modifyvm ${VM_NAME} --ioapic on
 VBoxManage modifyvm ${VM_NAME} --boot1 dvd --boot2 disk --boot3 none --boot4 none
 
 # Define the number of virtual CPUs for the VM
-VBoxManage modifyvm ${VM_NAME} --cpus 2
+VBoxManage modifyvm ${VM_NAME} --cpus 4
 
 # Define the Networking settings for the VM
 VBoxManage modifyvm ${VM_NAME} --nic1 nat
 
-VBoxManage unattended install ${VM_NAME} \
---iso=${PATH_TO_IMAGE} \
---user=username --password=password \
---time-zone=America/New_York \
---language=en_US \
---install-additions \
+# VBoxManage unattended install ${VM_NAME} \
+# --iso=${PATH_TO_VDI} \
+# --user=username --password=password \
+# --time-zone=America/New_York \
+# --language=en_US \
+# --install-additions \
 
 
 # --post-install-command="sudo apt-get update && sudo apt-get upgrade -y"
