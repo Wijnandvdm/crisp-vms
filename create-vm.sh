@@ -14,7 +14,47 @@ echo "Please enter a password for the new virtual machine:"
 read -s password
 
 path_to_vdi="vms/${vm_name}.vdi"
-path_to_os_image="images/${os_image_name}"
+
+# Get the current directory of the script
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Navigate to the directory containing the images
+images_dir="${script_dir}/images"
+
+# Check if the directory exists
+if [ ! -d "$images_dir" ]; then
+    echo "Error: The 'images' directory does not exist. Creating one now..."
+    mkdir images
+    echo "Please copy your downloaded iso image to the images directory and run the script again"
+    exit 1
+fi
+
+# Create an array to store filenames
+file_array=()
+
+# Populate the array with filenames
+while IFS= read -r -d $'\0' file; do
+    file_array+=("$file")
+done < <(find "$images_dir" -maxdepth 1 -type f -print0)
+
+# Loop over the array
+for file in "${file_array[@]}"; do
+    # Ask the user if they want to use the image
+    read -p "Do you want to use the image: $file? (y/n): " choice
+
+    # Check the user's choice
+    if [ "$choice" == "y" ]; then
+        os_image_name="$file"
+        break  # Exit the loop if the user selects 'y'
+    fi
+done
+
+# Display the selected image
+if [ -n "$os_image_name" ]; then
+    echo "You selected the image: $os_image_name"
+else
+    echo "No image selected."
+fi
 
 # check if vm exists, if not, create vm
 echo "looking for vm..."
@@ -48,7 +88,7 @@ VBoxManage storageattach ${vm_name} \
 VBoxManage storagectl ${vm_name} --name IDE --add ide --controller PIIX4
 VBoxManage storageattach ${vm_name} \
 --storagectl IDE --port 0 --device 0 --type dvddrive \
---medium ${path_to_os_image}
+--medium ${os_image_name}
 
 # Set the VM RAM and Virtual graphics card RAM size
 VBoxManage modifyvm ${vm_name} --memory ${ram} --vram ${vram} --graphicscontroller vmsvga
@@ -69,14 +109,27 @@ VBoxManage modifyvm ${vm_name} --nic1 nat
 VBoxManage modifyvm ${vm_name} --clipboard bidirectional --draganddrop bidirectional
 
 VBoxManage unattended install ${vm_name} \
---iso=${path_to_os_image} \
+--iso=${os_image_name} \
 --user=${username} \
 --full-user-name=${username} \
 --password=${password} \
 --time-zone=${time_zone} \
 --language=${language} \
 --install-additions \
---post-install-command="su - && usermod -a -G sudo ${username}"
+# --post-install-command="su - && usermod -a -G sudo ${username}"\
 # --hostname="${vm_name}.${vm_name}" \
 
-VBoxHeadless --startvm ${vm_name}
+# VBoxHeadless --startvm ${vm_name}
+
+# # ChatGPT addition
+# sleep 10
+# # Wait for the installation to complete
+# while VBoxManage list runningvms | grep -q "$VM_NAME"; do
+#   sleep 5
+# done
+
+# # Execute the post-install command
+# VBoxManage guestcontrol "jumbo-vm" run --exe "usr/bin/bash" --username "jumbo-vm" --password "testtesttest" --wait-stdout --wait-stderr -- "/bin/bash" "-c" "mkdir ~/testfolder"
+
+
+# https://docs.oracle.com/en/virtualization/virtualbox/6.0/user/vboxmanage-controlvm.html
