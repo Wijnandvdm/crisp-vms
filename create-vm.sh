@@ -115,21 +115,11 @@ VBoxManage unattended install ${vm_name} \
 --password=${password} \
 --time-zone=${time_zone} \
 --language=${language} \
---install-additions \
-# --post-install-command="su - && usermod -a -G sudo ${username}"\
-# --hostname="${vm_name}.${vm_name}" \
+--install-additions > /dev/null 2>&1
 
-# VBoxHeadless --startvm ${vm_name}
+VBoxManage startvm ${vm_name} --type headless > /dev/null 2>&1
 
-# # ChatGPT addition
-# sleep 10
-# # Wait for the installation to complete
-# while VBoxManage list runningvms | grep -q "$VM_NAME"; do
-#   sleep 5
-# done
-
-# # Execute the post-install command
-# VBoxManage guestcontrol "jumbo-vm" run --exe "usr/bin/bash" --username "jumbo-vm" --password "testtesttest" --wait-stdout --wait-stderr -- "/bin/bash" "-c" "mkdir ~/testfolder"
+bash post-install-script.sh ${vm_name} ${username} ${password}
 
 
 # https://docs.oracle.com/en/virtualization/virtualbox/6.0/user/vboxmanage-controlvm.html

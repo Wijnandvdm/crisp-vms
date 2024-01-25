@@ -16,13 +16,7 @@
     Fix for error is add virtualbox folder to Path Env Vars: https://www.roelpeters.be/vboxmanage-is-not-recognized-and-how-to-solve-it/
 
 ## At this point manual actions after creating vm, preferably automated in future:
-snap install vscode
-
-add user to sudoers list (put "myuser ALL=(ALL) NOPASSWD: ALL" into the sudoers file. tip: by executing command "visudo", you immediately enter the sudoers file in nano
-
 sudo apt install git
-
-create folder for repos e.g. (mkdir ~/repos)
 
 adjust example below and paste in a file called .gitconfig in user home directory (cd ~)
 [user]
@@ -35,7 +29,7 @@ adjust example below and paste in a file called .gitconfig in user home director
 
 adjust example below and paste in a file called .git-credentials in user home directory (cd ~):
 https://firstletteroffirstnameandlastname:password@repo.virtualsciences.nl
-https:/ssh-key-created-in-github@github.com
+https:/ssh-key-in-github@github.com
 
 install curl: sudo apt install curl
 install azure cli: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt#option-1-install-with-one-command
@@ -51,7 +45,7 @@ sudo apt update && sudo apt install dotnet7
 # Why
 ## This project has been started to allow for quickly and easily spinning up VMs
 ## This means that the standard way to run the create-vm.bash script has to result in a bare-bones VM
-. create-vm.sh
+bash create-vm.sh
 ## All other functionalities that are added on, need to be found in ONE place and should be able to be turned off/on easily
 ## In this project, Virtualbox Version 7.0.6 is used
 
