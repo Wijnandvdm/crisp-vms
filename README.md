@@ -31,6 +31,8 @@ adjust example below and paste in a file called .git-credentials in user home di
 https://firstletteroffirstnameandlastname:password@repo.virtualsciences.nl
 https:/ssh-key-in-github@github.com
 
+## Important side note on the SSH key in GitHub, first you create the key in GitHub.com, then you try to clone it with an empty git-credentials file. Log in via browser and it should autofill your git-credentials file.
+
 install curl: sudo apt install curl
 install azure cli: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt#option-1-install-with-one-command
 
