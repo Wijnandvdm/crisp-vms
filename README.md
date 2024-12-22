@@ -16,7 +16,7 @@
     Fix for error is add virtualbox folder to Path Env Vars: https://www.roelpeters.be/vboxmanage-is-not-recognized-and-how-to-solve-it/
 
 ## At this point manual actions after creating vm, preferably automated in future:
-sudo apt install git
+Add VSCode extensions in the following manner to post-install-script.sh: https://code.visualstudio.com/docs/editor/extension-marketplace#_command-line-extension-management
 
 adjust example below and paste in a file called .gitconfig in user home directory (cd ~)
 [user]
@@ -30,6 +30,8 @@ adjust example below and paste in a file called .gitconfig in user home director
 adjust example below and paste in a file called .git-credentials in user home directory (cd ~):
 https://firstletteroffirstnameandlastname:password@repo.virtualsciences.nl
 https:/ssh-key-in-github@github.com
+
+## Important side note on the SSH key in GitHub, first you create the key in GitHub.com, then you try to clone it with an empty git-credentials file. Log in via browser and it should autofill your git-credentials file.
 
 install curl: sudo apt install curl
 install azure cli: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt#option-1-install-with-one-command

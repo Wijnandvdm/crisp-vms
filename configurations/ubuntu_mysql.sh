@@ -11,7 +11,6 @@ array_of_commands=(
     "sudo snap install code --classic"
     "sudo apt-get install -y git"
     "sudo apt-get update"
-    "sudo apt install docker.io -y"
-    "sudo apt install curl -y"
-    "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash"
+    "sudo apt install mysql-server -y"
+    "sudo snap install dbeaver-ce"
     )
