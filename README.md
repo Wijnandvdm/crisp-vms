@@ -59,3 +59,11 @@ ssh-keygen
 ## copy content and paste in new ssh key in GitHub
 ## configure SSO
 ## should be able to access GitHub from VM now
+
+
+# for requesting the config that Vagrant creates, use:
+vagrant ssh-config
+
+
+# to check network adapters on windows, in powershell as admin:
+Get-NetAdapter
