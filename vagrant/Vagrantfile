@@ -1,24 +1,24 @@
 # Vagrantfile for a lightweight VM
 Vagrant.configure("2") do |config|
     # Use a lightweight Ubuntu 18.04 box
-    config.vm.box = "hashicorp/bionic64"
+    config.vm.box = "bento/ubuntu-22.04" # Ubuntu 22.04 Server
   
     # Set the VM hostname
     config.vm.hostname = "lightweight-vm"
   
     # Customize the VM resources
     config.vm.provider "virtualbox" do |vb|
-      vb.memory = "512" # Allocate 512 MB of RAM
-      vb.cpus = 1       # Allocate 1 CPU
-      vb.name = "LightweightVM" # Name of the VM in VirtualBox
+      vb.memory = "8192" # Allocate 512 MB of RAM
+      vb.cpus = 4       # Allocate 1 CPU
+      vb.name = "lightweight-vm" # Name of the VM in VirtualBox
     end
-  
-    # Sync folder from host to guest (disabled for minimal overhead)
-    config.vm.synced_folder ".", "/vagrant", disabled: true
-  
+
     # Optional: Provision with a simple shell script
     config.vm.provision "shell", inline: <<-SHELL
       sudo apt update && sudo apt install -y build-essential git curl
     SHELL
+
+  # Provision to copy the file directly
+  config.vm.provision "file", source: "~/.gitconfig", destination: "~/.gitconfig"
   end
   

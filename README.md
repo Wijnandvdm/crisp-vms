@@ -64,6 +64,9 @@ ssh-keygen
 # for requesting the config that Vagrant creates, use:
 vagrant ssh-config
 
+# overwriting your own ssh config with vagrant ssh-config, use:
+vagrant ssh-config > ~/.ssh/config
+
 
 # to check network adapters on windows, in powershell as admin:
 Get-NetAdapter
