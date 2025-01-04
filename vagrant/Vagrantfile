@@ -16,6 +16,8 @@ Vagrant.configure("2") do |config|
     # Optional: Provision with a simple shell script
     config.vm.provision "shell", inline: <<-SHELL
       sudo apt update && sudo apt install -y build-essential git curl
+      mkdir ~/repos
+      echo "alias python='python3'" >> ~/.bashrc
     SHELL
 
   # Provision to copy the file directly
