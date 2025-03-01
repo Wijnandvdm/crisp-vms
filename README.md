@@ -1,22 +1,3 @@
-# REQUIREMENTS
-## VM image
-    You have to create a folder in the repository named "images", and download an .iso file (e.g. from https://ubuntu.com/download/desktop)
-## Virtualbox
-### Virtualbox program
-    Download: https://www.virtualbox.org/wiki/Downloads
-    You can encounter the following error: Oracle VM Virtualbox <version number> needs the Microsoft Visual C++ 2019 ... installed first.
-    Fix for error: https://www.debugpoint.com/virtualbox-needs-microsoft-visual-c/
-### Virtualbox Guest additions
-    When you've installed Virtualbox, Guest Additions usually reside in "C:\Program Files\Oracle\VirtualBox"
-    Copy file "VBoxGuestAdditions.iso" to images folder
-
-## Git Bash
-    Download: https://gitforwindows.org/
-    You can encounter the following error: VBoxManage command not found
-    Fix for error is add virtualbox folder to Path Env Vars: https://www.roelpeters.be/vboxmanage-is-not-recognized-and-how-to-solve-it/
-
-## At this point manual actions after creating vm, preferably automated in future:
-Add VSCode extensions in the following manner to post-install-script.sh: https://code.visualstudio.com/docs/editor/extension-marketplace#_command-line-extension-management
 
 adjust example below and paste in a file called .gitconfig in user home directory (cd ~)
 [user]
@@ -70,3 +51,6 @@ vagrant ssh-config > ~/.ssh/config
 
 # to check network adapters on windows, in powershell as admin:
 Get-NetAdapter
+
+# Vagrant documentation
+https://developer.hashicorp.com/vagrant/docs
