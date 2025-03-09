@@ -13,13 +13,8 @@ Vagrant.configure("2") do |config|
       vb.name = "lightweight-vm" # Name of the VM in VirtualBox
     end
 
-    $script = <<-'SCRIPT'
-    echo "alias python='python3'" >> ~/.bashrc
-    mkdir ~/repos
-    SCRIPT
-
     # Optional: Provision with a simple shell script
-    config.vm.provision "shell", inline: $script
+    config.vm.provision "shell", path: "test.sh"
 
   # Provision to copy your local gitconfig file to your virtual machine
   config.vm.provision "file", source: "~/.gitconfig", destination: "~/.gitconfig"
