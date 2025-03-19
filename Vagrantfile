@@ -14,5 +14,5 @@ Vagrant.configure("2") do |config|
     end
     config.vm.provision "shell", path: PROVISIONING_SCRIPT # copy script to /vagrant folder and execute
     config.vm.provision "file", source: "~/.gitconfig", destination: "~/.gitconfig" # copy your local gitconfig file to your virtual machine
+    config.vm.provision "file", source: "~/.git-credentials", destination: "~/.git-credentials" # copy your local git-credentials file to your virtual machine
   end
-  
