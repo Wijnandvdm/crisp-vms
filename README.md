@@ -5,7 +5,6 @@ Secondly, CrispVMs is a tool for generating disposable Virtual Machines (VMs) fo
 
 ## Prerequisites
 Before you begin, make sure you have the following installed:
-
 - **[Vagrant](https://developer.hashicorp.com/vagrant/docs)**
   A tool for managing virtual machine environments.
 - **[VirtualBox](https://www.virtualbox.org/)**
