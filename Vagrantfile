@@ -5,8 +5,8 @@ CPUS = 4
 PROVISIONING_SCRIPT = "provisioning.sh"
 
 Vagrant.configure("2") do |config|
-    config.vm.box = OS
-    config.vm.hostname = VIRTUAL_MACHINE_NAME
+  config.vm.hostname = VIRTUAL_MACHINE_NAME
+  config.vm.box = OS
     config.vm.provider "virtualbox" do |vb|
       vb.memory = MEMORY
       vb.cpus = CPUS
