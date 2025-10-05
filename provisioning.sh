@@ -9,6 +9,7 @@ curl -LsSf https://astral.sh/uv/${UV_VERSION}/install.sh | sh # install uv
 sudo apt-get install docker.io -y # install docker
 sudo usermod -aG docker vagrant # add vagrant user to docker group
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash # install azure cli
+sudo apt install unzip # install unzip (necessary for databricks cli installation)
 curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh \
   | sed "s/^VERSION=\"[^\"]*\"/VERSION=\"${DATABRICKS_VERSION}\"/" \
   | sudo sh # install databricks cli
