@@ -1,5 +1,6 @@
 #!/bin/bash
 UV_VERSION="0.8.0"
+DATABRICKS_VERSION=0.268.0
 
 sudo apt-get update # update apt packages (one could add sudo apt-get upgrade -y to upgrade all packages, but this take way more time)
 echo "alias python='python3'" >> /home/vagrant/.bashrc # useful alias
@@ -8,4 +9,6 @@ curl -LsSf https://astral.sh/uv/${UV_VERSION}/install.sh | sh # install uv
 sudo apt-get install docker.io -y # install docker
 sudo usermod -aG docker vagrant # add vagrant user to docker group
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash # install azure cli
-curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh # install databricks cli
+curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh \
+  | sed "s/^VERSION=\"[^\"]*\"/VERSION=\"${DATABRICKS_VERSION}\"/" \
+  | sudo sh # install databricks cli
